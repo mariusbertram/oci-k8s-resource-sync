@@ -1,0 +1,5 @@
+## Append samples of your project ##
+resources:
+- oci-sync_v1aplha1_oci-secret.yaml
+- oci-sync_v1aplha1_ocisecret.yaml
+# +kubebuilder:scaffold:manifestskustomizesamples
