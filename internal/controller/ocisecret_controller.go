@@ -27,8 +27,8 @@ package controller
 import (
 	"context"
 	ocisyncv1aplha1 "github.com/mariusbertram/oci-resource-sync-operator/api/v1aplha1"
-	"github.com/mariusbertram/oci-resource-sync-operator/internal/pkg/orasclient"
-	"github.com/mariusbertram/oci-resource-sync-operator/internal/pkg/utils"
+	"github.com/mariusbertram/oci-resource-sync-operator/internal/orasclient"
+	"github.com/mariusbertram/oci-resource-sync-operator/internal/utils"
 	v1core "k8s.io/api/core/v1"
 	apierrors "k8s.io/apimachinery/pkg/api/errors"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"

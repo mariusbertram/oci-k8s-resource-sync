@@ -60,6 +60,7 @@ type OCISecretStatus struct {
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
+// +kubebuilder:resource:scope=Cluster
 
 // OCISecret is the Schema for the ocisecrets API
 type OCISecret struct {

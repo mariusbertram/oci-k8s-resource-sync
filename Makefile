@@ -35,7 +35,7 @@ BUNDLE_METADATA_OPTS ?= $(BUNDLE_CHANNELS) $(BUNDLE_DEFAULT_CHANNEL)
 #
 # For example, running 'make bundle-build bundle-push catalog-build catalog-push' will build and push both
 # brtrm.de/oci-k8s-resource-sync-bundle:$VERSION and brtrm.de/oci-k8s-resource-sync-catalog:$VERSION.
-IMAGE_TAG_BASE ?= brtrm.de/oci-k8s-resource-sync
+IMAGE_TAG_BASE ?= quay.io/mabertram/oci-k8s-resource-sync/oci-k8s-resource-sync
 
 # BUNDLE_IMG defines the image:tag used for the bundle.
 # You can use it as an arg. (E.g make bundle-build BUNDLE_IMG=<some-registry>/<project-name-bundle>:<tag>)
@@ -56,7 +56,7 @@ endif
 # This is useful for CI or a project to utilize a specific version of the operator-sdk toolkit.
 OPERATOR_SDK_VERSION ?= v1.39.2
 # Image URL to use all building/pushing image targets
-IMG ?= controller:latest
+IMG ?= quay.io/mabertram/oci-k8s-resource-sync/controller:latest
 # ENVTEST_K8S_VERSION refers to the version of kubebuilder assets to be downloaded by envtest binary.
 ENVTEST_K8S_VERSION = 1.31.0
 
@@ -152,7 +152,7 @@ docker-build: ## Build docker image with the manager.
 
 .PHONY: docker-push
 docker-push: ## Push docker image with the manager.
-	$(CONTAINER_TOOL) manifest push ${IMG}
+	$(CONTAINER_TOOL) push ${IMG}
 
 # PLATFORMS defines the target platforms for the manager image be built to provide support to multiple
 # architectures. (i.e. make docker-buildx IMG=myregistry/mypoperator:0.0.1). To use this option you need to:
@@ -282,7 +282,7 @@ bundle: manifests kustomize operator-sdk ## Generate bundle manifests and metada
 
 .PHONY: bundle-build
 bundle-build: ## Build the bundle image.
-	docker build -f bundle.Dockerfile -t $(BUNDLE_IMG) .
+	podman build -f bundle.Dockerfile -t $(BUNDLE_IMG) .
 
 .PHONY: bundle-push
 bundle-push: ## Push the bundle image.
@@ -322,7 +322,7 @@ endif
 # https://github.com/operator-framework/community-operators/blob/7f1438c/docs/packaging-operator.md#updating-your-existing-operator
 .PHONY: catalog-build
 catalog-build: opm ## Build a catalog image.
-	$(OPM) index add --container-tool docker --mode semver --tag $(CATALOG_IMG) --bundles $(BUNDLE_IMGS) $(FROM_INDEX_OPT)
+	$(OPM) index add --container-tool podman --mode semver --tag $(CATALOG_IMG) --bundles $(BUNDLE_IMGS) $(FROM_INDEX_OPT)
 
 # Push the catalog image.
 .PHONY: catalog-push
